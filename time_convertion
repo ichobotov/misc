@@ -1,0 +1,36 @@
+from datetime import datetime
+
+def gps_to_utc(time):
+    hh = int(time[0:2])
+    mm = int(time[3:5])
+    ss = int(time[6:8])
+    time_sec_gps = hh*3600 + mm*60 + ss
+    time_sec_utc = time_sec_gps - 18
+    if time_sec_utc < 0:
+        time_sec_utc = time_sec_utc + 86400
+    hh_utc = time_sec_utc/3600
+    mm_utc = (hh_utc - int(hh_utc))*60
+    ss_utc = round((mm_utc - int(mm_utc))*60)
+    if ss_utc == 60:
+        ss_utc = 0
+        mm_utc = (hh_utc - int(hh_utc)) * 60 + 1
+
+    if int(mm_utc) == 59 and ss_utc == 60:
+        ss_utc = 0
+        mm_utc = 0
+        hh_utc = time_sec_utc / 3600 + 1
+
+    time_sec_utc = str(int(hh_utc)).rjust(2, '0')+str(int(mm_utc)).rjust(2, '0') +str(int(ss_utc)).rjust(2, '0')
+    return time_sec_utc
+
+def local_to_utc(time):
+    time = time.split(':')
+    hh = int(time[0])
+    hh = hh-3
+    if hh < 0:
+        hh = str(hh+24)
+    time[0] = str(hh)
+    time_utc = ':'.join(time)
+    time_utc = datetime.strptime(time_utc, "%H:%M:%S")
+    time_utc = time_utc.strftime("%H:%M:%S")
+    return time_utc

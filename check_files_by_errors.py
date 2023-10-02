@@ -83,11 +83,11 @@ total_files = len(files_sorted)
 
 print ('##############################################\n\r')
 print (f'To look at: {problem_files} of {total_files} ---> {round((problem_files / total_files) * 100, 2)}%'+'\n\r')
-print (f'Failed files: {failed_files} of {total_files} ---> {round((failed_files / total_files) * 100, 2)}%'+'\n\r')
+print (f'Failed trials: {failed_files} of {total_files} ---> {round((failed_files / total_files) * 100, 2)}%'+'\n\r')
 print ('##############################################\n\r')
 result_file.write ('##############################################\n\r')
 result_file.write (f'To look at: {problem_files} of {total_files} ---> {round((problem_files / total_files) * 100, 2)}%'+'\n\r')
-result_file.write (f'Failed files: {failed_files} of {total_files} ---> {round((failed_files / total_files) * 100, 2)}%'+'\n\r')
+result_file.write (f'Failed trials: {failed_files} of {total_files} ---> {round((failed_files / total_files) * 100, 2)}%'+'\n\r')
 result_file.write ('##############################################\n\r')
 
 

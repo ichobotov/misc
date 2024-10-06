@@ -27,7 +27,7 @@ if len(sys.argv) == 1:
          Use -t for time mode and -p for percent mode
          For example:
          python bincut.py inp.txt out.txt -t GNGGA 101112.00 201122.50
-         python bincut.pip install pyinstallerpy inp.txt out.txt -p 10 50''')
+         python bincut.py inp.txt out.txt -p 10 50''')
     sys.exit()
 
 if sys.argv[3] == '-t':
@@ -57,14 +57,15 @@ try:
 
                 for line in tqdm(f,desc='in progress', unit=''):
                 # for line in f:
-                    if find_string(line,f'\${args.message_type},.*{args.start_time}'):
-                        f1.write(line[line.index(f'${args.message_type}'.encode('utf-8')):])
-                        record = True
-                        continue
-                    if find_string(line,f'\${args.message_type},.*{args.end_time}'):
-                        f1.write(line[:line.index(f'${args.message_type}'.encode('utf-8'))])
-                        record = False
-                        break
+                    if args.message_type.encode('utf-8') in line:
+                        if find_string(line,f'\${args.message_type},.*{args.start_time}'):
+                            f1.write(line[line.index(f'${args.message_type}'.encode('utf-8')):])
+                            record = True
+                            continue
+                        if find_string(line,f'\${args.message_type},.*{args.end_time}'):
+                            f1.write(line[:line.index(f'${args.message_type}'.encode('utf-8'))])
+                            record = False
+                            break
                     if record:
                         f1.write(line)
 except AttributeError:
@@ -100,4 +101,4 @@ try:
 except AttributeError:
     pass
 
-# print(f'Time elapsed = {(datetime.now() - start_time).total_seconds()} sec')
+print(f'Time elapsed = {(datetime.now() - start_time).total_seconds()} sec')
